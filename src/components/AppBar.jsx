@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 const AppBarTab = () => {
   return (
     <Pressable onPress={() => console.log('AppBar pressed')}>
-      <Text fontWeight="bold" fontSize="subheading" color="textWhite">Repositories</Text>
+      <Text fontWeight="bold" fontSize="subheading" color="white">Repositories</Text>
     </Pressable>
   );
 };
