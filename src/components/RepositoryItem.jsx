@@ -1,41 +1,21 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import Text from './Text';
 
 const styles = StyleSheet.create({
   container: {
     padding: 20,
   },
-  text: {
-    color: 'grey',
-    fontSize: 14,
-  },
-  blueText: {
-    color: 'blue',
-  },
-  bigText: {
-    fontSize: 24,
-    fontWeight: '700',
-  },
 });
-
-const FancyText = ({ isBlue, isBig, children }) => {
-  const textStyles = [
-    styles.text,
-    isBlue && styles.blueText,
-    isBig && styles.bigText,
-  ];
-
-  return <Text style={textStyles}>{children}</Text>;
-};
 
 const RepositoryItem = ({item}) => (
   <View style={styles.container}>
-    <FancyText isBig>Full name: {item.fullName}</FancyText>
-    <FancyText>Description: {item.description}</FancyText>
-    <FancyText isBlue>Language: {item.language}</FancyText>
-    <FancyText>Stars: {item.stargazersCount}</FancyText>
-    <FancyText>Forks: {item.forksCount}</FancyText>
-    <FancyText>Reviews: {item.reviewCount}</FancyText>
-    <FancyText>Rating: {item.ratingAverage}</FancyText>
+    <Text fontWeight="bold" fontSize="subheading">Full name: {item.fullName}</Text>
+    <Text color="textSecondary">Description: {item.description}</Text>
+    <Text color="primary">Language: {item.language}</Text>
+    <Text color="textSecondary">Stars: {item.stargazersCount}</Text>
+    <Text color="textSecondary">Forks: {item.forksCount}</Text>
+    <Text color="textSecondary">Reviews: {item.reviewCount}</Text>
+    <Text color="textSecondary">Rating: {item.ratingAverage}</Text>
   </View>
 );
 
