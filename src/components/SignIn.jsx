@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: theme.colors.border,
+    backgroundColor: theme.colors.fieldBg,
   },
   button: {
     alignItems: "center",
@@ -43,6 +44,26 @@ const validationSchema = yup.object().shape({
     .required('Password is required'),
 });
 
+const FormikTextInput = ({ name, formik, ...props }) => (
+  <View style={styles.inputContainer}>
+    <TextInput
+      style={[
+        styles.inputField,
+        formik.touched[name] && formik.errors[name] && {
+          borderColor: theme.colors.error
+        }
+      ]}
+      value={formik.values[name]}
+      onChangeText={formik.handleChange(name)}
+      onBlur={formik.handleBlur(name)}
+      {...props}
+    />
+    {formik.touched[name] && formik.errors[name] && (
+      <Text color="error">{formik.errors[name]}</Text>
+    )}
+  </View>
+);
+
 const SignInForm = ({ onSubmit }) => {
   const formik = useFormik({
     initialValues,
@@ -52,41 +73,17 @@ const SignInForm = ({ onSubmit }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={[
-            styles.inputField,
-            formik.touched.username && formik.errors.username && {
-              borderColor: theme.colors.error
-            }
-          ]}
-          placeholder="Username"
-          value={formik.values.username}
-          onChangeText={formik.handleChange('username')}
-        />
-        {formik.touched.username && formik.errors.username && (
-          <Text color="error">{formik.errors.username}</Text>
-        )}
-      </View>
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={[
-            styles.inputField,
-            formik.touched.password && formik.errors.password && {
-              borderColor: theme.colors.error
-            }
-          ]}
-          placeholder="Password"
-          secureTextEntry
-          value={formik.values.password}
-          onChangeText={formik.handleChange('password')}
-        />
-        {formik.touched.password && formik.errors.password && (
-          <Text color="error">{formik.errors.password}</Text>
-        )}
-      </View>
-
+      <FormikTextInput
+        name="username"
+        formik={formik}
+        placeholder="Username"
+      />
+      <FormikTextInput
+        name="password"
+        formik={formik}
+        placeholder="Password"
+        secureTextEntry
+      />
       <Pressable style={styles.button} onPress={formik.handleSubmit}>
         <Text fontWeight="bold" fontSize="subheading" color="white">
           Sign in

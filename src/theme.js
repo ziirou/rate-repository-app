@@ -8,6 +8,7 @@ const theme = {
     appBarBg: '#24292e',
     itemBg: '#ffffff',
     formBg: '#ffffff',
+    fieldBg: '#f9f9f9',
     border: '#bfbfbf',
     error: '#d73a4a',
   },
