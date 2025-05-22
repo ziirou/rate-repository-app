@@ -9,6 +9,7 @@ const theme = {
     itemBg: '#ffffff',
     formBg: '#ffffff',
     border: '#bfbfbf',
+    error: '#d73a4a',
   },
   fontSizes: {
     body: 14,
