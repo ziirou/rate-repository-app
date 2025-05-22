@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.fieldBg,
+    fontFamily: theme.fonts.main,
   },
   button: {
     alignItems: "center",
