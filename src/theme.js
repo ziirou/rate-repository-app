@@ -7,6 +7,8 @@ const theme = {
     mainBg: '#e1e4e8',
     appBarBg: '#24292e',
     itemBg: '#ffffff',
+    formBg: '#ffffff',
+    border: '#bfbfbf',
   },
   fontSizes: {
     body: 14,
