@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
 import RepositoryItem from './RepositoryItem';
+import useRepositories from '../hooks/useRepositories';
 
 const styles = StyleSheet.create({
   separator: {
@@ -12,21 +11,7 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
-  const [repositories, setRepositories] = useState();
-
-  const fetchRepositories = async () => {
-    const ipAddress = Constants.expoConfig.extra.ipAddress;
-    const response = await fetch(`http://${ipAddress}:5000/api/repositories`);
-    const json = await response.json();
-
-    console.log(json);
-
-    setRepositories(json);
-  };
-
-  useEffect(() => {
-    fetchRepositories();
-  }, []);
+  const { repositories } = useRepositories();
 
   // Get the nodes from the edges array
   const repositoryNodes = repositories
