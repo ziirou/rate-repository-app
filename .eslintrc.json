@@ -8,6 +8,8 @@
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "parser": "@babel/eslint-parser",
   "env": {
+    "browser": true,
+    "node": true,
     "react-native/react-native": true
   },
   "rules": {
