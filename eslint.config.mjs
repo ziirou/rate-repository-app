@@ -1,6 +1,8 @@
 import { defineConfig } from "eslint/config";
+import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
 import react from "eslint-plugin-react";
 import reactNative from "eslint-plugin-react-native";
+import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 import babelParser from "@babel/eslint-parser";
 import path from "node:path";
@@ -17,11 +19,21 @@ const compat = new FlatCompat({
 });
 
 export default defineConfig([{
-    extends: compat.extends("eslint:recommended", "plugin:react/recommended"),
+    files: ['**/*.js', '**/*.jsx'],
+
+    ignores: ['**/.eslintrc*', '**/eslint.config.*', '**/node_modules'],
+
+    extends: fixupConfigRules(compat.extends(
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:react-native/all",
+    )),
 
     plugins: {
-        react,
-        "react-native": reactNative,
+        react: fixupPluginRules(react),
+        "react-native": fixupPluginRules(reactNative),
+        "react-hooks": fixupPluginRules(reactHooks),
     },
 
     languageOptions: {
@@ -43,5 +55,6 @@ export default defineConfig([{
     rules: {
         "react/prop-types": "off",
         "react/react-in-jsx-scope": "off",
+        "react-hooks/rules-of-hooks": "error",
     },
 }]);

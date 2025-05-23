@@ -1,11 +1,21 @@
 {
-  "plugins": ["react", "react-native"],
+  "root": true,
+  "plugins": [
+    "react",
+    "react-native",
+    "react-hooks"
+  ],
   "settings": {
     "react": {
       "version": "detect"
     }
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react-native/all"
+  ],
   "parser": "@babel/eslint-parser",
   "env": {
     "browser": true,
@@ -14,6 +24,7 @@
   },
   "rules": {
     "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/rules-of-hooks": "error"
   }
 }
