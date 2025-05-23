@@ -6,6 +6,13 @@ export const GET_REPOSITORIES = gql`
       edges {
         node {
           fullName
+          description
+          language
+          ownerAvatarUrl
+          stargazersCount
+          forksCount
+          reviewCount
+          ratingAverage
         }
       }
     }

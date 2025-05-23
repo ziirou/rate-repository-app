@@ -1,30 +1,29 @@
 import { useState, useEffect } from 'react';
-import Constants from 'expo-constants';
+import { useQuery } from '@apollo/client';
+import { GET_REPOSITORIES } from '../graphql/queries';
 
 const useRepositories = () => {
+  const { data, error, loading, refetch } = useQuery(GET_REPOSITORIES, {
+    fetchPolicy: 'cache-and-network',
+  });
+
   const [repositories, setRepositories] = useState();
-  const [loading, setLoading] = useState(false);
-
-  const fetchRepositories = async () => {
-    setLoading(true);
-
-    const ipAddress = Constants.expoConfig.extra.ipAddress;
-    if (!ipAddress) {
-      throw new Error('IP address is not defined in the environment variables');
-    }
-
-    const response = await fetch(`http://${ipAddress}:5000/api/repositories`);
-    const json = await response.json();
-
-    setLoading(false);
-    setRepositories(json);
-  };
 
   useEffect(() => {
-    fetchRepositories();
-  }, []);
+    if(data && data.repositories) {
+      setRepositories(data.repositories);
+    }
+  }, [data]);
 
-  return { repositories, loading, refetch: fetchRepositories };
+  if (loading) {
+    console.log('loading repositories');
+  }
+
+  if (error) {
+    console.log(error);
+  }
+
+  return { repositories, error, loading, refetch };
 };
 
 export default useRepositories;
