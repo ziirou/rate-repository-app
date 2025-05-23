@@ -1,16 +1,17 @@
+import { useNavigate } from "react-router";
 import SignInForm from './SignInForm';
 import useSignIn from '../../hooks/useSignIn';
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const [signIn] = useSignIn();
 
   const onSubmit = async (values) => {
-    console.log(values);
     const { username, password } = values;
 
     try {
-      const { data } = await signIn({ username, password });
-      console.log(data);
+      await signIn({ username, password });
+      navigate(-1);
     } catch (e) {
       console.log(e);
     }
