@@ -1,13 +1,13 @@
 import { View, ScrollView, StyleSheet, Pressable } from 'react-native';
-import { Link } from "react-router-native";
+import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
 import Text from './Text';
 import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     padding: 10,
     paddingTop: Constants.statusBarHeight,
     backgroundColor: theme.colors.appBarBg,

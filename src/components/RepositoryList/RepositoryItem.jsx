@@ -17,24 +17,24 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.itemBg,
   },
   infoContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 10,
     paddingHorizontal: 10,
   },
   statsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     paddingTop: 10,
     paddingHorizontal: 10,
   },
   infoTab: {
     flexShrink: 1,
     gap: 5,
-    alignItems: "flex-start",
+    alignItems: 'flex-start',
     paddingHorizontal: 10,
   },
   statsTab: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   avatar: {
     width: 50,

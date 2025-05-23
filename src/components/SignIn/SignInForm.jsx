@@ -6,7 +6,7 @@ import theme from '../../theme';
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
+    display: 'flex',
     padding: 15,
     backgroundColor: theme.colors.formBg,
   },
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.main,
   },
   button: {
-    alignItems: "center",
+    alignItems: 'center',
     borderRadius: 5,
     padding: 15,
     backgroundColor: theme.colors.primary,

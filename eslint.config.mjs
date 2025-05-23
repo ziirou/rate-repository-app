@@ -56,5 +56,7 @@ export default defineConfig([{
         "react/prop-types": "off",
         "react/react-in-jsx-scope": "off",
         "react-hooks/rules-of-hooks": "error",
+        "react-native/sort-styles": "off",
+        quotes: ["error", "single"],
     },
 }]);
