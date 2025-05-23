@@ -21,7 +21,7 @@ const App = () => {
           <Main />
         </ApolloProvider>
       </NativeRouter>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </>
   );
 };
