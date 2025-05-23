@@ -29,6 +29,6 @@ export default {
   },
   extra: {
     env: process.env.ENV,
-    ipAddress: process.env.IP_ADDRESS,
+    apolloUri: process.env.APOLLO_URI,
   },
 }
