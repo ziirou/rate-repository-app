@@ -10,7 +10,7 @@ const useRepositories = () => {
   const [repositories, setRepositories] = useState();
 
   useEffect(() => {
-    if(data && data.repositories) {
+    if (data && data.repositories) {
       setRepositories(data.repositories);
     }
   }, [data]);
