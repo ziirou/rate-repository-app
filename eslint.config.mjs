@@ -26,6 +26,7 @@ export default defineConfig([{
     extends: fixupConfigRules(compat.extends(
         "eslint:recommended",
         "plugin:react/recommended",
+        "plugin:jest/recommended",
         "plugin:react-hooks/recommended",
         "plugin:react-native/all",
     )),
