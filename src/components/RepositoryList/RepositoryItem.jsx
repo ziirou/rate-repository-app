@@ -50,9 +50,26 @@ const styles = StyleSheet.create({
 
 const InfoTab = ({ info: { fullName, description, language } }) => (
   <View style={styles.infoTab}>
-    <Text fontWeight="bold" fontSize="subheading">{fullName}</Text>
-    <Text color="textSecondary">{description}</Text>
-    <Text style={styles.languageTag} color="white">{language}</Text>
+    <Text
+      testID="fullName"
+      fontWeight="bold"
+      fontSize="subheading"
+    >
+      {fullName}
+    </Text>
+    <Text
+      testID="description"
+      color="textSecondary"
+    >
+      {description}
+    </Text>
+    <Text
+      testID="language"
+      style={styles.languageTag}
+      color="white"
+    >
+      {language}
+    </Text>
   </View>
 );
 
@@ -68,9 +85,9 @@ const InfoContainer = ({
   </View>
 );
 
-const StatsTab = ({ text, number }) => (
+const StatsTab = ({ text, number, testID }) => (
   <View style={styles.statsTab}>
-    <Text fontWeight="bold">{roundNumber(number)}</Text> 
+    <Text testID={testID} fontWeight="bold">{roundNumber(number)}</Text> 
     <Text color="textSecondary">{text}</Text>
   </View>
 );
@@ -79,15 +96,15 @@ const StatsContainer = ({
   item: { stargazersCount, forksCount, reviewCount, ratingAverage }
 }) => (
   <View style={styles.statsContainer}>
-    <StatsTab text="Stars" number={stargazersCount} />
-    <StatsTab text="Forks" number={forksCount} />
-    <StatsTab text="Reviews" number={reviewCount} />
-    <StatsTab text="Rating" number={ratingAverage} />
+    <StatsTab testID="stargazersCount" text="Stars" number={stargazersCount} />
+    <StatsTab testID="forksCount" text="Forks" number={forksCount} />
+    <StatsTab testID="reviewCount" text="Reviews" number={reviewCount} />
+    <StatsTab testID="ratingAverage" text="Rating" number={ratingAverage} />
   </View>
 );
 
 const RepositoryItem = ({ item }) => (
-  <View style={styles.mainContainer}>
+  <View testID="repositoryItem" style={styles.mainContainer}>
     <InfoContainer item={item} />
     <StatsContainer item={item} />
   </View>
