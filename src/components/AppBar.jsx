@@ -49,6 +49,7 @@ const AppBar = () => {
         <AppBarTab text="Create a review" url="/create-review" show={loggedIn} />
         <AppBarTab text="Sign in" url="/sign-in" show={!loggedIn} />
         <AppBarTab text="Sign out" url="/sign-out" show={loggedIn} />
+        <AppBarTab text="Sign up" url="/sign-up" show={!loggedIn} />
       </ScrollView>
     </View>
   );
