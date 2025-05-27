@@ -60,13 +60,15 @@ const InfoTab = ({ info: { fullName, description, language } }) => {
       >
         {descWithEmojis}
       </Text>
-      <Text
-        testID="language"
-        style={styles.languageTag}
-        color="white"
-      >
-        {language}
-      </Text>
+      {language && (
+        <Text
+          testID="language"
+          style={styles.languageTag}
+          color="white"
+        >
+          {language}
+        </Text>
+      )}
     </View>
   );
 };
