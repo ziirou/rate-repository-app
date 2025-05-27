@@ -1,14 +1,7 @@
 import { View, Image, StyleSheet } from 'react-native';
+import emoji from 'emoji-dictionary';
 import Text from '../Text';
 import theme from '../../theme';
-
-const roundNumber = (number) => {
-  if (number >= 1000) {
-    return (`${Math.round(number / 1000 * 10) / 10}k`);
-  } else {
-    return number;
-  }
-};
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -47,30 +40,36 @@ const styles = StyleSheet.create({
   },
 });
 
-const InfoTab = ({ info: { fullName, description, language } }) => (
-  <View style={styles.infoTab}>
-    <Text
-      testID="fullName"
-      fontWeight="bold"
-      fontSize="subheading"
-    >
-      {fullName}
-    </Text>
-    <Text
-      testID="description"
-      color="textSecondary"
-    >
-      {description}
-    </Text>
-    <Text
-      testID="language"
-      style={styles.languageTag}
-      color="white"
-    >
-      {language}
-    </Text>
-  </View>
-);
+const InfoTab = ({ info: { fullName, description, language } }) => {
+  const descWithEmojis = description.replace(/:([a-zA-Z0-9_+-]+):/g,
+    (match) => emoji.getUnicode(match) || match
+  );
+
+  return (
+    <View style={styles.infoTab}>
+      <Text
+        testID="fullName"
+        fontWeight="bold"
+        fontSize="subheading"
+      >
+        {fullName}
+      </Text>
+      <Text
+        testID="description"
+        color="textSecondary"
+      >
+        {descWithEmojis}
+      </Text>
+      <Text
+        testID="language"
+        style={styles.languageTag}
+        color="white"
+      >
+        {language}
+      </Text>
+    </View>
+  );
+};
 
 const InfoContainer = ({
   item: { ownerAvatarUrl, fullName, description, language }
@@ -84,12 +83,22 @@ const InfoContainer = ({
   </View>
 );
 
-const StatsTab = ({ text, number, testID }) => (
-  <View style={styles.statsTab}>
-    <Text testID={testID} fontWeight="bold">{roundNumber(number)}</Text> 
-    <Text color="textSecondary">{text}</Text>
-  </View>
-);
+const StatsTab = ({ text, number, testID }) => {
+  const roundNumber = (number) => {
+    if (number >= 1000) {
+      return (`${Math.round(number / 1000 * 10) / 10}k`);
+    } else {
+      return number;
+    }
+  };
+
+  return (
+    <View style={styles.statsTab}>
+      <Text testID={testID} fontWeight="bold">{roundNumber(number)}</Text> 
+      <Text color="textSecondary">{text}</Text>
+    </View>
+  );
+};
 
 const StatsContainer = ({
   item: { stargazersCount, forksCount, reviewCount, ratingAverage }
