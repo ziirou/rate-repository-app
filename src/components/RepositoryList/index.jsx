@@ -2,22 +2,29 @@ import { useState } from 'react';
 import { FlatList, Pressable, View, StyleSheet } from 'react-native';
 import { useNavigate } from 'react-router';
 import { Picker } from '@react-native-picker/picker';
+import { Searchbar } from 'react-native-paper';
+import { useDebounce } from 'use-debounce';
 import RepositoryItem from './RepositoryItem';
 import useRepositories from '../../hooks/useRepositories';
+import theme from '../../theme';
 
 const styles = StyleSheet.create({
   separator: {
     height: 10,
+  },
+  searchBar: {
+    margin: 15,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.white,
   },
 });
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const PressableRepositoryItem = ({ item, onPress }) => (
-  <Pressable
-    style={styles.button}
-    onPress={() => onPress(item.id)}
-  >
+  <Pressable onPress={() => onPress(item.id)}>
     <RepositoryItem item={item} />
   </Pressable>
 );
@@ -40,7 +47,9 @@ export const RepositoryListContainer = ({ repositories, onPress }) => {
 
 const RepositoryList = () => {
   const [sorting, setSorting] = useState('latest');
-  const { repositories } = useRepositories(sorting);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQueryDebounced] = useDebounce(searchQuery, 500);
+  const { repositories } = useRepositories(sorting, searchQueryDebounced);
   const navigate = useNavigate();
 
   const handleItemPress = (id) => {
@@ -53,6 +62,13 @@ const RepositoryList = () => {
 
   return (
     <>
+      <Searchbar
+        style={styles.searchBar}
+        placeholder="Search"
+        onChangeText={setSearchQuery}
+        value={searchQuery}
+      />
+
       <Picker
         selectedValue={sorting}
         onValueChange={(itemValue) => setSorting(itemValue)}
