@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { FlatList, Pressable, View, StyleSheet } from 'react-native';
 import { useNavigate } from 'react-router';
+import { Picker } from '@react-native-picker/picker';
 import RepositoryItem from './RepositoryItem';
 import useRepositories from '../../hooks/useRepositories';
 
@@ -37,7 +39,8 @@ export const RepositoryListContainer = ({ repositories, onPress }) => {
 };
 
 const RepositoryList = () => {
-  const { repositories } = useRepositories();
+  const [sorting, setSorting] = useState('latest');
+  const { repositories } = useRepositories(sorting);
   const navigate = useNavigate();
 
   const handleItemPress = (id) => {
@@ -49,10 +52,21 @@ const RepositoryList = () => {
   };
 
   return (
-    <RepositoryListContainer
-      repositories={repositories}
-      onPress={handleItemPress}
-    />
+    <>
+      <Picker
+        selectedValue={sorting}
+        onValueChange={(itemValue) => setSorting(itemValue)}
+      >
+        <Picker.Item label="Latest repositories" value="latest" />
+        <Picker.Item label="Highest rated repositories" value="highestRated" />
+        <Picker.Item label="Lowest rated repositories" value="lowestRated" />
+      </Picker>
+
+      <RepositoryListContainer
+        repositories={repositories}
+        onPress={handleItemPress}
+      />
+    </>
   );
 };
 
