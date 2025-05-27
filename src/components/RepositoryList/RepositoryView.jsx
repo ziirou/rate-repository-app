@@ -73,6 +73,7 @@ const ReviewItem = ({ review }) => {
   if (!review) return null;
 
   const reviewDate = format(new Date(review.createdAt),'dd.MM.yyyy');
+  const reviewText = review.text?.length > 0 ? review.text : undefined;
 
   return (
     <View style={styles.reviewContainer}>
@@ -84,9 +85,11 @@ const ReviewItem = ({ review }) => {
       <View style={styles.reviewInfo}>
         <Text fontWeight="bold" fontSize="subheading">{review.user.username}</Text>
         <Text color="textSecondary">{reviewDate}</Text>
-        <View style={styles.textHolder}>
-          <Text>{review.text}</Text>
-        </View>
+        {reviewText && (
+          <View style={styles.textHolder}>
+            <Text>{reviewText}</Text>
+          </View>
+        )}
       </View>
     </View>
   );
