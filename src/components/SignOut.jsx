@@ -10,7 +10,7 @@ const SignOut = () => {
     (async () => {
       try {
         await signOut();
-        navigate(-1);
+        navigate(-1, { replace: true });
       } catch (e) {
         console.log(e);
       }
