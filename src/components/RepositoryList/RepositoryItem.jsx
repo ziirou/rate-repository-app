@@ -13,13 +13,12 @@ const roundNumber = (number) => {
 const styles = StyleSheet.create({
   mainContainer: {
     display: 'flex',
-    padding: 10,
+    padding: 15,
     backgroundColor: theme.colors.itemBg,
   },
   infoContainer: {
     flexDirection: 'row',
     gap: 10,
-    paddingHorizontal: 10,
   },
   statsContainer: {
     flexDirection: 'row',
