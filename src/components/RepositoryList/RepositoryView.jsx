@@ -67,7 +67,7 @@ const RepositoryView = () => {
       )}
       renderItem={({ item }) => <ReviewItem review={item} />}
     />
-  )
+  );
 };
 
 export default RepositoryView;

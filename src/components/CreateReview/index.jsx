@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import ReviewForm from './ReviewForm';
-import useCreateReview from '../../hooks/useCreateReview';
+import useReviewCreate from '../../hooks/useReviewCreate';
 
 export const CreateReviewContainer = ({ onSubmit }) => {
   const initialValues = {
@@ -41,7 +41,7 @@ export const CreateReviewContainer = ({ onSubmit }) => {
 
 const CreateReview = () => {
   const navigate = useNavigate();
-  const [createReview] = useCreateReview();
+  const [createReview] = useReviewCreate();
 
   const onSubmit = async (values) => {
     const { ownerName, repositoryName, rating, reviewText } = values;

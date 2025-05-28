@@ -1,9 +1,15 @@
 import { gql } from '@apollo/client';
 
-const REPOSITORY_DETAILS = gql`
-  fragment RepositoryDetails on Repository {
+const REPOSITORY_BASE_DETAILS = gql`
+  fragment RepositoryBaseDetails on Repository {
     id
     fullName
+  }
+`;
+
+const REPOSITORY_DETAILS = gql`
+  fragment RepositoryDetails on Repository {
+    ...RepositoryBaseDetails
     description
     language
     ownerAvatarUrl
@@ -12,7 +18,8 @@ const REPOSITORY_DETAILS = gql`
     reviewCount
     ratingAverage
   }
-`
+  ${REPOSITORY_BASE_DETAILS}
+`;
 
 const REVIEW_DETAILS = gql`
   fragment ReviewDetails on Review {
@@ -21,7 +28,7 @@ const REVIEW_DETAILS = gql`
     rating
     createdAt
   }
-`
+`;
 
 export const GET_REPOSITORIES = gql`
   query repositories(
@@ -79,11 +86,12 @@ export const GET_CURRENT_USER = gql`
             rating
             text
             repository {
-              fullName
+              ...RepositoryBaseDetails
             }
           }
         }
       }
     }
   }
+  ${REPOSITORY_BASE_DETAILS}
 `;

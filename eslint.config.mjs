@@ -59,5 +59,6 @@ export default defineConfig([{
         "react-hooks/rules-of-hooks": "error",
         "react-native/sort-styles": "off",
         quotes: ["error", "single"],
+        semi: ["error", "always"],
     },
 }]);
