@@ -29,7 +29,7 @@ const PressableRepositoryItem = ({ item, onPress }) => (
   </Pressable>
 );
 
-export const RepositoryListContainer = ({ repositories, onPress }) => {
+export const RepositoryListContainer = ({ repositories, onPress, onEndReach }) => {
   // Get the nodes from the edges array
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
@@ -41,6 +41,8 @@ export const RepositoryListContainer = ({ repositories, onPress }) => {
       ItemSeparatorComponent={ItemSeparator}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => <PressableRepositoryItem item={item} onPress={onPress} />}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };
@@ -49,7 +51,7 @@ const RepositoryList = () => {
   const [sorting, setSorting] = useState('latest');
   const [searchQuery, setSearchQuery] = useState('');
   const [searchQueryDebounced] = useDebounce(searchQuery, 500);
-  const { repositories } = useRepositories(sorting, searchQueryDebounced);
+  const { repositories, fetchMore } = useRepositories(sorting, searchQueryDebounced);
   const navigate = useNavigate();
 
   const handleItemPress = (id) => {
@@ -58,6 +60,10 @@ const RepositoryList = () => {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const onEndReach = () => {
+    fetchMore();
   };
 
   return (
@@ -81,6 +87,7 @@ const RepositoryList = () => {
       <RepositoryListContainer
         repositories={repositories}
         onPress={handleItemPress}
+        onEndReach={onEndReach}
       />
     </>
   );
