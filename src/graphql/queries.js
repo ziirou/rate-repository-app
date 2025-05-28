@@ -14,6 +14,15 @@ const REPOSITORY_DETAILS = gql`
   }
 `
 
+const REVIEW_DETAILS = gql`
+  fragment ReviewDetails on Review {
+    id
+    text
+    rating
+    createdAt
+  }
+`
+
 export const GET_REPOSITORIES = gql`
   query repositories(
     $orderBy: AllRepositoriesOrderBy,
@@ -43,10 +52,7 @@ export const GET_SINGLE_REPOSITORY = gql`
       reviews {
         edges {
           node {
-            id
-            text
-            rating
-            createdAt
+            ...ReviewDetails
             user {
               id
               username
@@ -57,13 +63,27 @@ export const GET_SINGLE_REPOSITORY = gql`
     }
   }
   ${REPOSITORY_DETAILS}
+  ${REVIEW_DETAILS}
 `;
 
 export const GET_CURRENT_USER = gql`
-  query {
+  query getCurrentUser($includeReviews: Boolean = false) {
     me {
       id
       username
+      reviews @include(if: $includeReviews) {
+        edges {
+          node {
+            id
+            createdAt
+            rating
+            text
+            repository {
+              fullName
+            }
+          }
+        }
+      }
     }
   }
 `;
