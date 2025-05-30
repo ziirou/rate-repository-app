@@ -41,9 +41,15 @@ const styles = StyleSheet.create({
 });
 
 const InfoTab = ({ info: { fullName, description, language } }) => {
-  const descWithEmojis = description.replace(/:([a-zA-Z0-9_+-]+):/g,
+  const descWithEmojis = (description ?? '').replace(
+    /:([a-zA-Z0-9_+-]+):/g,
     (match) => emoji.getUnicode(match) || match
   );
+
+  const displayDescription =
+    descWithEmojis && descWithEmojis.trim().length > 0
+      ? descWithEmojis
+      : 'No description provided.';
 
   return (
     <View style={styles.infoTab}>
@@ -58,7 +64,7 @@ const InfoTab = ({ info: { fullName, description, language } }) => {
         testID="description"
         color="textSecondary"
       >
-        {descWithEmojis}
+        {displayDescription}
       </Text>
       {language && (
         <Text
