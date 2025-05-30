@@ -77,7 +77,11 @@ const ReviewActions = ({ review, onViewPress, onDeletePress }) => {
 
 const MyRewiews = () => {
   const navigate = useNavigate();
-  const { userData, refetch: refetchUserData } = useCurrentUser(true);
+  const {
+    userData,
+    refetch: refetchUserData,
+    fetchMore: fetchMoreReviews
+  } = useCurrentUser(true);
   const [deleteReview] = useReviewDelete();
 
   if (!userData) {
@@ -131,6 +135,10 @@ const MyRewiews = () => {
     );
   };
 
+  const onEndReach = () => {
+    fetchMoreReviews();
+  };
+
   return (
     <FlatList
       data={reviewNodes}
@@ -143,6 +151,8 @@ const MyRewiews = () => {
           onDeletePress={handleDeletePress}
         />
       )}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };

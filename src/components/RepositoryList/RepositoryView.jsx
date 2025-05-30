@@ -45,7 +45,7 @@ const RepositoryInfo = ({ repository }) => {
 
 const RepositoryView = () => {
   const { id } = useParams();
-  const { repository } = useRepository(id);
+  const { repository, fetchMore: fetchMoreReviews } = useRepository(id);
 
   if (!repository) return null;
 
@@ -53,6 +53,10 @@ const RepositoryView = () => {
   const reviewNodes = reviewEdges
     ? reviewEdges.map((edge) => edge.node)
     : [];
+
+  const onEndReach = () => {
+    fetchMoreReviews();
+  };
 
   return (
     <FlatList
@@ -66,6 +70,8 @@ const RepositoryView = () => {
         </>
       )}
       renderItem={({ item }) => <ReviewItem review={item} />}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };

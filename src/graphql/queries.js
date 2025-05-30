@@ -63,11 +63,11 @@ export const GET_REPOSITORIES = gql`
 `;
 
 export const GET_SINGLE_REPOSITORY = gql`
-  query repository($id: ID!) {
+  query repository($id: ID!, $first: Int, $after: String) {
     repository(id: $id) {
       ...RepositoryDetails
       url
-      reviews {
+      reviews(first: $first, after: $after) {
         edges {
           node {
             ...ReviewDetails
@@ -76,6 +76,13 @@ export const GET_SINGLE_REPOSITORY = gql`
               username
             }
           }
+          cursor
+        }
+        pageInfo {
+          startCursor
+          endCursor
+          hasNextPage
+          hasPreviousPage
         }
       }
     }
@@ -85,11 +92,17 @@ export const GET_SINGLE_REPOSITORY = gql`
 `;
 
 export const GET_CURRENT_USER = gql`
-  query getCurrentUser($includeReviews: Boolean = false) {
+  query getCurrentUser(
+    $includeReviews: Boolean = false,
+    $first: Int,
+    $after: String
+  ) {
     me {
       id
       username
-      reviews @include(if: $includeReviews) {
+      reviews(
+        first: $first, after: $after
+      ) @include(if: $includeReviews) {
         edges {
           node {
             id
@@ -100,6 +113,13 @@ export const GET_CURRENT_USER = gql`
               ...RepositoryBaseDetails
             }
           }
+          cursor
+        }
+        pageInfo {
+          startCursor
+          endCursor
+          hasNextPage
+          hasPreviousPage
         }
       }
     }

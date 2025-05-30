@@ -3,9 +3,8 @@ import { GET_REPOSITORIES } from '../graphql/queries';
 
 const useRepositories = (sorting, searchQuery) => {
   let variables = {
-    searchKeyword: searchQuery ? searchQuery : undefined,
-    first: 3,
-    after: undefined, // TODO: do in Exercise 10.27
+    searchKeyword: searchQuery ? searchQuery.trim() : undefined,
+    first: 8,
   };
 
   switch (sorting) {
@@ -53,6 +52,7 @@ const useRepositories = (sorting, searchQuery) => {
   return {
     repositories: data?.repositories,
     fetchMore: handleFetchMore,
+    error,
     loading,
     ...result,
   };
